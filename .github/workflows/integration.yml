@@ -1,0 +1,21 @@
+name: ng CI
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+  workflow_call:
+jobs:
+    PackageBuild:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3   
+        - name: Angular build
+          run: ng build --prod
+    Teste:
+      needs: PackageBuild
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3           
+        - name: Angular Testing
+          run: ng test
